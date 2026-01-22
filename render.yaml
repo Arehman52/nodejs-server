@@ -1,0 +1,7 @@
+services:
+  - name: nodejs-server
+    type: web
+    env: node
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
