@@ -1,6 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// JSON body parser
+app.use(express.json());
 
 // CORS and common headers middleware
 app.use((req, res, next) => {
@@ -15,12 +19,15 @@ app.use((req, res, next) => {
 
 // Controllers
 const usersController = require('./controllers/users');
+const googleMapsController = require('./controllers/google-maps');
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1><p><a href="/users">View users</a></p>');
 });
 
 app.get('/users', usersController.getUsers);
+
+app.get('/getLatLong', googleMapsController.getLatLong);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
