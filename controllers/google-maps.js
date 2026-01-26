@@ -4,9 +4,10 @@ module.exports = {
   getLatLong: async (req, res) => {
     try {
       const address = req.query.address || (req.body && req.body.address);
+      const mapKey = req.query.mapKey || (req.body && req.body.mapKey);
       if (!address) return res.status(400).json({ error: 'Missing address parameter (query or JSON body)' });
 
-      const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+      const apiKey = mapKey || process.env.GOOGLE_MAPS_API_KEY;
       if (!apiKey) return res.status(500).json({ error: 'Google Maps API key not configured in GOOGLE_MAPS_API_KEY' });
 
       const url = 'https://maps.googleapis.com/maps/api/geocode/json';
